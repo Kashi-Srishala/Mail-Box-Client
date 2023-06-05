@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 export default function MyForm() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [editorState, setEditorState] = useState(null);
 
   const baseUrl = "http://localhost:8000";
 
@@ -32,6 +35,11 @@ export default function MyForm() {
       });
   };
 
+  const handleEditorStateChange = (state) => {
+    setEditorState(state);
+    setMessage(state.getCurrentContent().getPlainText());
+  };
+
   return (
     <Container>
       <h1>Send email to the account</h1>
@@ -56,11 +64,12 @@ export default function MyForm() {
 
         <Form.Group controlId="formMessage">
           <Form.Label>Message</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={3}
-            placeholder="Enter your message here..."
-            onChange={(e) => setMessage(e.target.value)}
+          <Editor
+            editorState={editorState}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={handleEditorStateChange}
           />
         </Form.Group>
 
