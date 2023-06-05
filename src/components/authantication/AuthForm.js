@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Alert, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const AuthForm = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ const AuthForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [isSignUp, setIsSignUp] = useState(true);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,9 +42,11 @@ const AuthForm = () => {
         } else {
           console.log('User has successfully logged in.');
           setSuccessMsg('Login is Successful');
+          
         }
         setTimeout(() => {
           setSuccessMsg('');
+          navigate('/home');
         }, 5000);
         setEmail('');
         setPassword('');
