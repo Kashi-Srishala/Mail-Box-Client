@@ -47,7 +47,7 @@ const AuthForm = () => {
         setTimeout(() => {
           setSuccessMsg('');
           navigate('/home');
-        }, 5000);
+        }, 2000);
         setEmail('');
         setPassword('');
         setConfirmPassword('');
